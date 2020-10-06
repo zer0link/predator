@@ -30,6 +30,7 @@ async function verifyInternalAddressReachable() {
         logger.info('Skipping verify internal address check');
         return;
     }
+    await timeout(3000);
 
     const internalConfigAddress = await configHandler.getConfigValue(constConfig.INTERNAL_ADDRESS) + '/config';
     logger.info(`Checking ${internalConfigAddress} to verify predator-runners will be able connect to Predator`);
@@ -44,4 +45,8 @@ async function verifyInternalAddressReachable() {
     } else {
         logger.info(`${internalConfigAddress} successfully reached`);
     }
+}
+
+function timeout(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
 }
