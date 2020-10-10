@@ -115,19 +115,11 @@ workflows:
   test_build_release:
     jobs:
     - setup
-    - unit-tests:
-        requires:
-        - setup
+    - build
+    - unit-tests
     - integration-tests:
         requires:
         - unit-tests
-    - build:
-        requires:
-        - integration-tests
-        filters:
-          branches:
-            # Forked pull requests have CIRCLE_BRANCH set to pull/XXX
-            ignore: /pull\/[0-9]+/
     - release-approval:
         name: release-<< matrix.version >>-approval
         type: approval
